@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string[] urls = null;
+    if (TempData.ContainsKey("URLs"))
+    {
+        urls = ((List<string>)TempData.Peek("URLs")).ToArray();
+    }
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration : TempData - Historique URL</title>
+</head>
+<body>
+    <h1>Démonstration : TempData - Historique URL</h1>
+    <h2>TempData</h2>
+    @if(urls is null)
+    {
+        <p>Pas d'historique...</p>
+    }
+    else
+    {
+        <ul>
+        @foreach (string url in urls)
+        {
+            <li><a href="@url">@url</a></li>
+        }
+        </ul>
+    }
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration : Formulaire</title>
+</head>
+<body>
+    <h1>Démonstrations : Formulaire</h1>
+    @if (!ViewContext.ModelState.IsValid)
+    {
+        <div style="background-color:rgb(255,128,128); padding : 15px; border : 2px solid rgb(64,0,0); color : rgb(64,0,0); border-radius : 15px;">
+            <p>Vous avez dans votre fomulaire : @ViewContext.ModelState.ErrorCount erreur(s)</p>
+            <ul>
+                @foreach(KeyValuePair<string, ModelStateEntry> entry in ViewContext.ModelState)
+                {
+                    if(entry.Value.Errors.Count() > 0)
+                    {
+                        <li>@entry.Key : 
+                            <ul>
+                                @foreach(ModelError error in entry.Value.Errors)
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    <h2>Veuillez indiquer les renseignements concernant votre rendez-vous :</h2>
+    <form method="post">
+        <div>
+            <label for="subject">Concerne : </label>
+            <input type="text" id="subject" name="subject" required />
+        </div>
+        <div>
+            <label for="firstname">Prénom : </label>
+            <input type="text" id="firstname" name="firstname" required />
+        </div>
+        <div>
+            <label for="lastname">Nom de famille : </label>
+            <input type="text" id="lastname" name="lastname" required />
+        </div>
+        <div>
+            <label for="date">Date du rendez-vous : </label>
+            <input type="date" id="date" name="date" required />
+        </div>
+        <div>
+            <label for="time">Heure du rendez-vous : </label>
+            <input type="time" id="time" name="time" required />
+        </div>
+        <input type="submit" value="Envoyer"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int nb1 = 5;
+    int nb2 = 3;
+    int Multiplication(int x, int y)
+    {
+        return x * y;
+    }
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration : Razor</title>
+</head>
+<body>
+    <h1>Démonstration : Razor</h1>
+
+    <h2>Expression implicite</h2>
+    <p>@@nb1 contient la valeur de @nb1</p>
+    <p>@@nb2 contient la valeur de @nb2</p>
+
+    <h2>Expression explicite</h2>
+    <p>Si je fait une opération + entre les variables nb1 et nb2 je doit utiliser @@(nb1 + nb2)</p>
+    <p>@nb1 + @nb2 = @(nb1 + nb2)</p>
+
+    <h2>Bloc d'instruction</h2>
+    <p>Au début de mon .cshtml, j'ai déclaré mes variables nb1 et nb2 pour définir leur valeur.</p>
+    <p>Nous y avons aussi défini une fonction Multiplication, je peux appeler cette fonction à tout moment :</p>
+    <p>@nb1 * @nb2 = @Multiplication(nb1,nb2)</p>
+
+    <h2>Transition de ligne explicite</h2>
+    @{
+        string MettreEnGras(string text)
+        {
+            @:<strong>@text</strong>
+            return "";
+        }
+    }
+    <p>Si nous devons afficher du texte à l'aide de fonction C#, alors le texte sera précédé de @@:</p>
+    <p>Voici une fonction qui met en gras du texte : @MettreEnGras("Ce texte est gras...")</p>
+
+    <h2>Templating Methods</h2>
+    @{
+        void CreerListe(string[] liste)
+        {
+            <ul>
+                @foreach(string value in liste){
+                    <li>
+                        @value
+                    </li>
+                }
+            </ul>
+        }
+    }
+    <p>Si votre fonction doit afficher du code HTML, à l'aide de balise, pas besion du @@:, juste le fait de définir la balise permet d'afficher le contenu HTML.</p>
+    @{
+        string[] infos = []; // ["Ovidiu", "Aimée", "Erick-Sébastian", "Jason"];
+    }
+    @if(infos.Length > 0)
+    {
+        CreerListe(infos);
+    }
+    else
+    {
+       <p>Il n'y a pas d'élèves enregistrés.</p> 
+    }
+    <h2>Commenter son code</h2>
+    <p>En commentant le code Razor à l'aide de @@* ... *@@, celui-ci ne sera pas généré, même en HTML.</p>
+    @*Ce code ne sera pas visible même dans le code source HTML.*@
+    <!--Ce code sera visible dans le code source HTML.-->
+
+</body>
+</html>

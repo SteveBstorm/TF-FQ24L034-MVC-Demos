@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Démonstration : ViewData / ViewBag</title>
+    </head>
+    <body>
+        <h1>Démonstrations : ViewData / ViewBag</h1>
+        <h2>ViewData</h2>
+        <p>@ViewData["text"]</p>
+        @if(ViewData["id"] is null){
+            <p>Nous n'avons pas de paramètre 'id' dans notre URL.</p>
+        }
+        else{
+            <p>Voici l'id intercepté par mon controller provenant de l'URL : @ViewData["id"]</p>
+        }
+
+        <h2>ViewBag</h2>
+        <p>À l'aide du ViewBag, il est possible d'obtenir directement les valeurs du ViewData.</p>
+        <p>@ViewBag.text</p>
+        @if(ViewBag.id is null){
+            <p>Nous n'avons pas de paramètre 'id' dans notre URL.</p>
+        }
+        else{
+            <p>Voici l'id intercepté par mon controller provenant de l'URL : @ViewBag.id</p>
+        }
+        <p>Le ViewBag a l'avantage d'être dynamic, ce qui veut dire que nous n'obtenons plus un object en résultat, mais que la valeur stockée est dynamiquement casté dans le bon type.<br>Autre avantage, l'utilisation d'un type dynamique diminue les chances d'erreur d'écriture de la variable pas le format string.</p>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string tempdataText = (string)TempData["text"];
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration : TempData </title>
+</head>
+<body>
+    <h1>Démonstration : TempData</h1>
+    <h2>TempData</h2>
+    <p>Cette vue apparaît après une redirection.</p>
+    <p>Donc toutes données du ViewData ou ViewBag de la première requête HTTP sont oubliées...</p>
+    <h3>ViewData</h3>
+    @if (ViewData["text"] is null)
+    {
+        <p>Pas de données dans le ViewData.</p>
+    }
+    else
+    {
+        <p>@ViewData["text"]</p>
+    }
+    <h3>TempData</h3>
+    @if (tempdataText is null)
+    {
+        <p>Pas de données dans le TempData.</p>
+    }
+    else
+    {
+        <p>@tempdataText</p>
+    }
+    <a href="/home/demo04TestMessage">Tester le contenu du TempData</a>
+</body>
+</html>

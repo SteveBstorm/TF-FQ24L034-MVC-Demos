@@ -1,0 +1,103 @@
+﻿@using ASPMVC_Demo01.Models
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Demo07Form;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration : Formulaire</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+    <h1>Démonstrations : Formulaire</h1>
+    @if (!ViewContext.ModelState.IsValid)
+    {
+        @*<div style="background-color:rgb(255,128,128); padding : 15px; border : 2px solid rgb(64,0,0); color : rgb(64,0,0); border-radius : 15px;">
+            <p>Vous avez dans votre fomulaire : @ViewContext.ModelState.ErrorCount erreur(s)</p>
+            <ul>
+                @foreach (KeyValuePair<string, ModelStateEntry> entry in ViewContext.ModelState)
+                {
+                    if (entry.Value.Errors.Count() > 0)
+                    {
+                        <li>
+                            @entry.Key :
+                            <ul>
+                                @foreach (ModelError error in entry.Value.Errors)
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+    </div>*@
+        @*@Html.ValidationSummary(false,
+                $"Vous avez dans votre fomulaire : {ViewContext.ModelState.ErrorCount} erreur(s)",
+                new { @class = "text-danger"});*@
+    }
+    <h2>Veuillez indiquer les renseignements concernant votre location de voiture :</h2>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm()){
+                <fieldset>
+                    <legend>Fiche conducteur : </legend>
+                    <div class="row mb-3">
+                        @Html.LabelFor(m => m.FirstName,new { @class="col-form-label"})
+                        @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new{ @class="form-control" }});
+                        @Html.ValidationMessageFor(
+                            expression: m => m.FirstName,
+                            message: null,
+                            htmlAttributes: new {@class="text-danger"}
+                        );
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="LastName" class="col-form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <p asp-validation-for="LastName" class="text-danger"></p>
+                        @Html.LabelFor(m => m.LastName, new { @class = "col-form-label" })
+                        @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } });
+                        @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" });
+                    </div>
+                    <div class="row mb-3">
+                        @Html.LabelFor(m => m.BirthDate, new { @class = "col-form-label" })
+                        @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control" } });
+                        @Html.ValidationMessageFor(m => m.BirthDate, null, new { @class = "text-danger" });
+                    </div>
+                    <div class="row mb-3">
+                        @Html.LabelFor(m => m.HaveLicence, new { @class = "col-form-label" })
+                        @Html.CheckBoxFor(m => m.HaveLicence);
+                    </div>
+                </fieldset>
+
+                <div class="row mb-3">
+                    @Html.LabelFor(m => m.CarModel, new { @class = "col-form-label" })
+                    @*<select id="carmodel" name="carmodel" class="form-select">
+                        <option selected disabled>Veuillez choisir un model</option>
+                        @foreach (string carmodelName in Enum.GetNames<CarModel>())
+                        {
+                            <option>@carmodelName</option>
+                        }
+                    </select>*@
+                    @Html.DropDownListFor(
+                        m => m.CarModel, 
+                        Enum.GetNames<CarModel>()
+                            .Select(e => new SelectListItem() { Text = e, Value = e, Selected = e=="Limousine" })
+                            .OrderBy(e => e.Text),
+                        new { htmlAttributes = new { @class = "form-select" }} ));
+                    @Html.ValidationMessageFor(m => m.CarModel, null, new { @class = "text-danger" });
+                </div>
+                <input type="submit" value="Envoyer" class="btn btn-outline-success" />
+            }
+        </div>
+    </div>
+    
+</body>
+</html>
