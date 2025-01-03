@@ -101,5 +101,26 @@ namespace ASPMVC_Demo01.Controllers
         {
             return View();
         }
+
+        public IActionResult Delete(int id)
+        {
+            productRepository.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Update(int id)
+        {
+            Demo.Product model = productRepository.GetById(id).ToASP();
+            return View(model);
+        
+        }
+
+        [HttpPost]
+        public IActionResult Update(Demo.Product model)
+        {
+            productRepository.Update(model.ToDal());
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

@@ -18,6 +18,18 @@ namespace ASPMVC_Demo01.Tools
         {
             return new asp.Product
             {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity
+            };
+        }
+
+        public static dal.Product ToDal(this asp.Product product)
+        {
+            return new dal.Product
+            {
+                Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
                 Quantity = product.Quantity

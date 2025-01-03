@@ -49,7 +49,56 @@ namespace DAL.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Product WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("id", id);
+
+                    connection.Open();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+
+                    connection.Close();
+                }
+            }
+        }
+
+        public void Update(Product product)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "UPDATE Product SET Name = @name, Price = @price, Quantity = @quantity " +
+                        "WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("id", product.Id);
+                    cmd.Parameters.AddWithValue("name", product.Name);
+                    cmd.Parameters.AddWithValue("price", product.Price);
+                    cmd.Parameters.AddWithValue("quantity", product.Quantity);
+
+                    connection.Open();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+
+                    connection.Close();
+                }
+            }
         }
 
         public IEnumerable<Product> GetAll()
