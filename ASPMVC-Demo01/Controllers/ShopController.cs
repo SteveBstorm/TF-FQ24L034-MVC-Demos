@@ -4,11 +4,17 @@ using DAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using ASPMVC_Demo01.Tools;
+using DAL.Interface;
 
 namespace ASPMVC_Demo01.Controllers
 {
     public class ShopController : Controller
     {
+        private IProductRepository productRepository;
+        public ShopController(IProductRepository repo)
+        {
+            productRepository = repo; 
+        }
 
         private Demo.Product[] _products = [
             new Demo.Product(){Name = "Tickets de loterie", Price = 2.5M, Quantity=100 },
@@ -21,26 +27,46 @@ namespace ASPMVC_Demo01.Controllers
         public IActionResult Index()
         {
             Title = "Liste des produits";
-            IEnumerable<Demo.ProductListItem> model = _products
-                .Select(p => new Demo.ProductListItem() { Name = p.Name, Price = p.Price}) ;
+
+            //ProductRepository productsRepository = new ProductRepository();
+
+            //IEnumerable<Demo.ProductListItem> model = _products
+            //    .Select(p => new Demo.ProductListItem() { Name = p.Name, Price = p.Price}) ;
+            IEnumerable<Demo.ProductListItem> model = productRepository.GetAll()
+                .Select(p => new Demo.ProductListItem() { Id = p.Id, Name = p.Name, Price = p.Price });
             return View(model);
         }
 
         public IActionResult Details(int id)
         {
+            //ProductRepository productsRepository = new ProductRepository();
+
             try
             {
-                if (id < 0) throw new ArgumentOutOfRangeException(nameof(id), "Indice ne peut être en dessous de 0");
-                if (id >= _products.Length) throw new ArgumentOutOfRangeException(nameof(id), $"Indice ne peut être au dessus de {_products.Length - 1}");
+                Demo.Product model = productRepository.GetById(id).ToASP();
+                Title = $"Vue détaillée de {model.Name}";
+                return View(model);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 TempData["errorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
-            Demo.Product model = _products[id];
-            Title = $"Vue détaillée de {model.Name}";
-            return View(model);
+
+
+            //try
+            //{
+            //    if (id < 0) throw new ArgumentOutOfRangeException(nameof(id), "Indice ne peut être en dessous de 0");
+            //    if (id >= _products.Length) throw new ArgumentOutOfRangeException(nameof(id), $"Indice ne peut être au dessus de {_products.Length - 1}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    TempData["errorMessage"] = ex.Message;
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //Demo.Product model = _products[id];
+            //Title = $"Vue détaillée de {model.Name}";
+            //return View(model);
         }
 
         public IActionResult AddProduct()
@@ -56,11 +82,11 @@ namespace ASPMVC_Demo01.Controllers
                 return View(product);
             }
 
-            ProductRepository repo = new ProductRepository();
+            //ProductRepository repo = new ProductRepository();
 
             try
             {
-                repo.Create(product.ToDal());
+                productRepository.Create(product.ToDal());
             }
             catch(Exception ex)
             {

@@ -13,5 +13,15 @@ namespace ASPMVC_Demo01.Tools
                 Quantity = productForm.Quantity
             };
         }
+
+        public static asp.Product ToASP(this dal.Product product)
+        {
+            return new asp.Product
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity
+            };
+        }
     }
 }

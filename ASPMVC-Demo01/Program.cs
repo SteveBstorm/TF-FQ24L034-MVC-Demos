@@ -1,3 +1,6 @@
+using DAL.Interface;
+using DAL.Services;
+
 namespace ASPMVC_Demo01
 {
     public class Program
@@ -9,6 +12,9 @@ namespace ASPMVC_Demo01
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            //Transient
+            //singleton
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
