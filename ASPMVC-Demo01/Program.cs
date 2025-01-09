@@ -1,3 +1,6 @@
+using ASPMVC_Demo01.Tools;
+using BLL.Interface;
+using BLL.Services;
 using DAL.Interface;
 using DAL.Services;
 
@@ -12,7 +15,15 @@ namespace ASPMVC_Demo01
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddScoped<SessionManager>();
             //Transient
             //singleton
             var app = builder.Build();
@@ -31,6 +42,8 @@ namespace ASPMVC_Demo01
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

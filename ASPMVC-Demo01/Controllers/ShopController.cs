@@ -68,7 +68,7 @@ namespace ASPMVC_Demo01.Controllers
             //Title = $"Vue détaillée de {model.Name}";
             //return View(model);
         }
-
+        [AdminRequired]
         public IActionResult AddProduct()
         {
             return View();
@@ -102,6 +102,7 @@ namespace ASPMVC_Demo01.Controllers
             return View();
         }
 
+        [AdminRequired]
         public IActionResult Delete(int id)
         {
             productRepository.Delete(id);

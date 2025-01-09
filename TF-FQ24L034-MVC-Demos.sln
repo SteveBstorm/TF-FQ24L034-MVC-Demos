@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPMVC-Demo01", "ASPMVC-Dem
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TF_Achitect_DB", "TF_Achitect_DB\TF_Achitect_DB.sqlproj", "{77BB64E2-F9E1-4B89-9DF6-D5117B3DB5CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{FB0631F9-6D42-4872-B8C5-062C2924AB79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{FB0631F9-6D42-4872-B8C5-062C2924AB79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{BF07D2C4-B0AD-4858-94E0-EC3B7A34FB6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{FB0631F9-6D42-4872-B8C5-062C2924AB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB0631F9-6D42-4872-B8C5-062C2924AB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB0631F9-6D42-4872-B8C5-062C2924AB79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF07D2C4-B0AD-4858-94E0-EC3B7A34FB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF07D2C4-B0AD-4858-94E0-EC3B7A34FB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF07D2C4-B0AD-4858-94E0-EC3B7A34FB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF07D2C4-B0AD-4858-94E0-EC3B7A34FB6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
